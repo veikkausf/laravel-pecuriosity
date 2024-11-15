@@ -26,6 +26,10 @@ Route::middleware('auth')->group(function () {
 Route::get('/map', function () {
     return view('map');
 });
+// Listat
+Route::get('/event_list', function () {
+    return view('event_list');
+});
 
 Route::get('/create_event', function () {
     return view('create_event');
@@ -34,7 +38,8 @@ Route::get('/create_event', function () {
 
 Route::get('create_event', [UserController::class, 'index']);
 
-Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+Route::get('/events_create', [EventController::class, 'create'])->name('events.create');
+
 
 // Define the route to store the event data
 Route::post('/events', [EventController::class, 'store'])->name('events.store');

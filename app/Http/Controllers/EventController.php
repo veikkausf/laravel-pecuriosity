@@ -36,15 +36,7 @@ class EventController extends Controller
         
     $events = Event::all();
         
-    $markers = $events->map(function($event) {
-        return [
-            'lat' => $event->latitude,
-            'long' => $event->longitude,
-        ];
-    });
-
-    $jsonMarkers = json_encode($markers);
-     
-      return view('map', compact('events', 'jsonMarkers'));
+    
+        return view('event_list', compact('events', ));
     }
 }    
