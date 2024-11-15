@@ -9,10 +9,8 @@ class Event extends Model
     // taulu tietokannasta
     protected $table = 'events';
 
-    
     protected $primaryKey = 'id';
 
-    
     protected $fillable = [
         'title', 'description', 'image', // Käyttäjän täyttämät tiedot
         'latitude', 'longitude', // Saadaan ip:stä

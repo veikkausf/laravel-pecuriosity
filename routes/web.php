@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventController;
+
 
 // Boarding sivu
 Route::get('/', function () {
@@ -25,10 +27,15 @@ Route::get('/map', function () {
     return view('map');
 });
 
-Route::get('/create', function () {
-    return view('create');
+Route::get('/create_event', function () {
+    return view('create_event');
 })->middleware(['auth', 'verified'])->name('create');
 
 
-Route::get('userdata', [UserController::class, 'index']);
+Route::get('create_event', [UserController::class, 'index']);
+
+Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+
+// Define the route to store the event data
+Route::post('/events', [EventController::class, 'store'])->name('events.store');
 require __DIR__.'/auth.php';

@@ -38,7 +38,7 @@ class UserController extends Controller
 
           
 
-        return view('userdata', compact('currentUserInfo'));
+        return view('create_event', compact('currentUserInfo'));
 
     }
 
