@@ -32,7 +32,7 @@ class UserController extends Controller
 
         /* $ip = $request->ip(); Dynamic IP address */
 
-        $ip = '31.87.148.142'; /* Static IP address */
+        $ip = '162.17.244.246'; /* Static IP address */
 
         $currentUserInfo = Location::get($ip);
 

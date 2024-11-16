@@ -33,10 +33,6 @@ class EventController extends Controller
             'longitude' => $request->input('longitude'),
             'image' => $imagePath, 
         ]);
-        
-        
-    $events = Event::all();
-        
     
         
     }
