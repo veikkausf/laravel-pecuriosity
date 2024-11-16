@@ -17,6 +17,7 @@
             <div class="bg-gray-700 p-6 m-4 rounded-lg w-96"> <!-- Increased width for larger boxes -->
                 <h2 class="text-3xl font-semibold">{{ $event->title }}</h2>
                 <p class="mt-2">{{ $event->description }}</p>
+                <p> ID TEST: {{ $event->id }}</p>
             </div>
         @endforeach
     </div>

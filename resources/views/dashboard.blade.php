@@ -11,7 +11,10 @@
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
                 </div>
+                </div>
+            <div class="flex justify-center mt-20">
+                <a class="underline text-7xl text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('event_list') }}">View Events</a>
+</div>
             </div>
-        </div>
     </div>
 </x-app-layout>

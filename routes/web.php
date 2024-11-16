@@ -26,10 +26,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/map', function () {
     return view('map');
 });
-// Listat
-Route::get('/event_list', function () {
-    return view('event_list');
-});
+// Listat, käyttää EventControllerin viewer-metodia
+Route::get('event_list', [EventController::class, 'viewer'])->name('event_list');
 
 Route::get('/create_event', function () {
     return view('create_event');

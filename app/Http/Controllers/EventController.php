@@ -34,9 +34,15 @@ class EventController extends Controller
             'image' => $imagePath, 
         ]);
         
+        
     $events = Event::all();
         
     
-        return view('event_list', compact('events', ));
+        
+    }
+    public function viewer(Request $request)
+    {
+        $events = Event::all();
+        return view('event_list', compact('events'));
     }
 }    
