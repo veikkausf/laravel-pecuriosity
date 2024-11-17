@@ -10,7 +10,7 @@
    <!-- Alpine.js CDN paketti -->
    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-   <!-- Leaflet CSS, piti lisätä jos haluaa tyylitellä "https://github.com/LarsWiegers/laravel-maps" -->
+   <!-- Leaflet CSS, pitää lisätä jos haluaa tyylitellä "https://github.com/LarsWiegers/laravel-maps" -->
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
       integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
       crossorigin="" />
@@ -21,16 +21,31 @@
    <h1 class="text-6xl font-bold mt-10 text-center">Latest Pecuriosities</h1>
    <div class="flex justify-center mt-10">
       <a href="create_event"
-         class="bg-blue-500 text-white text-center text-2xl py-2 px-4 rounded-lg hover:bg-blue-600"><b>List your own
+         class="bg-blue-500 text-white text-center text-2xl py-2 px-4 rounded-lg hover:bg-blue-900"><b>List your own
             pecuriosity</b> <br>(Login required)</a>
+   </div>
+
+   <div>
+      @if (session('success'))
+         <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 2500)"
+            x-transition:leave="transition-opacity duration-1000 ease-out" x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0" class="text-center bg-grey-900 text-white rounded">
+            {{ session('success') }}
+         </div>
+      @endif
    </div>
 
    {{-- Listataan eventit controllerin myötä --}}
    <div class="flex flex-col items-center mt-10 overflow-y-auto">
       @foreach ($events as $event)
-         <div class="bg-gray-600 p-6 m-4 rounded-lg border-2 border-blue-300 w-2/3 text-center">
+         <div class="bg-gray-700 p-6 m-4 rounded-lg border-2 border-blue-300 w-2/3 text-center">
             <h2 class="text-5xl font-bold">{{ $event->title }}</h2>
-            <p class="mt-2 font-semibold">{{ $event->description }}</p>
+            <div x-data="{ open: false }">
+               <button class="text-lg font-semibold pt-4" x-on:click="open = ! open">Press for more info <br> ↓</button>
+               <div x-show="open">
+               <p class="mt-2 font-semibold">{{ $event->description }}</p>
+               </div>
+            </div>
             {{-- <img src="{{ $event->image }} width="500" height="600"> --}}
 
             {{-- Kartta jokaisen tapahtuman alla, otetaann recordin id:n kanssa koordinaatit  --}}
@@ -43,7 +58,8 @@
             </div>
          </div>
       @endforeach
-      <button onclick="scrollUp()" title="Go to top">Top</button>
+      <button class="bg-blue-700 text-2xl font-semibold text-white text-center py-6 px-8 rounded-lg mb-2 hover:bg-blue-900" onclick="scrollUp()"
+         title="back to top">Back to the top</button>
    </div>
 
    <!-- Leaflet JS -->
@@ -62,7 +78,7 @@
 
       // Scrollaa ylös
       function scrollUp() {
-         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+         document.documentElement.scrollTop = 0;
       }
    </script>
 

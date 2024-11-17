@@ -11,7 +11,7 @@ class EventController extends Controller
     {
         // Tarkastetaan onko dataa
         $request->validate([
-            'title' => 'required|max:255',
+            'title' => 'required|max:100',
             'description' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'latitude' => 'required|numeric',
@@ -34,6 +34,7 @@ class EventController extends Controller
             'image' => $imagePath,
             
         ]);
+        return redirect()->route('event_list')->with('success', 'Your pecuriosity has been added!');
     }
     public function viewer(Request $request)
     {

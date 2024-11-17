@@ -41,5 +41,5 @@ Route::get('/create_event', function () {
 Route::get('create_event', [UserController::class, 'index']);
 
 // Define the route to store the event data
-Route::post('/events', [EventController::class, 'store'])->name('events.store');
+Route::post('/event_list', [EventController::class, 'store'])->name('events.store');
 require __DIR__ . '/auth.php';
