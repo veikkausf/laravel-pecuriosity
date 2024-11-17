@@ -21,7 +21,7 @@
    <h1 class="text-6xl font-bold mt-10 text-center">Latest Pecuriosities</h1>
    <div class="flex justify-center mt-10">
       <a href="create_event"
-         class="bg-blue-500 text-white text-center text-2xl py-2 px-4 rounded-lg hover:bg-blue-900"><b>List your own
+         class="bg-indigo-500 transition-colors duration-150 text-white text-center text-2xl py-2 px-4 rounded-lg hover:bg-indigo-900"><b>List your own
             pecuriosity</b> <br>(Login required)</a>
    </div>
 
