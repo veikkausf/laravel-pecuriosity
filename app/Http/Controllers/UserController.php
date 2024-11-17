@@ -32,13 +32,14 @@ class UserController extends Controller
 
         /* $ip = $request->ip(); Dynamic IP address */
 
-        $ip = '162.17.244.246'; /* Static IP address */
+        $ip = '141.208.40.36'; /* Static IP address */
 
         $currentUserInfo = Location::get($ip);
 
           
 
         return view('create_event', compact('currentUserInfo'));
+        
 
     }
 

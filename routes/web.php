@@ -5,7 +5,6 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 
-
 // Boarding sivu
 Route::get('/', function () {
     return view('welcome');
@@ -14,7 +13,9 @@ Route::get('/', function () {
 // Käyttäjän dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,16 +30,16 @@ Route::get('/map', function () {
 // Listat, käyttää EventControllerin viewer-metodia
 Route::get('event_list', [EventController::class, 'viewer'])->name('event_list');
 
+
 Route::get('/create_event', function () {
     return view('create_event');
-})->middleware(['auth', 'verified'])->name('create');
+})
+    ->middleware(['auth', 'verified'])
+    ->name('create');
 
 
 Route::get('create_event', [UserController::class, 'index']);
 
-Route::get('/events_create', [EventController::class, 'create'])->name('events.create');
-
-
 // Define the route to store the event data
 Route::post('/events', [EventController::class, 'store'])->name('events.store');
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

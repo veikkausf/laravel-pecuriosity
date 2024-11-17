@@ -18,5 +18,6 @@ class Event extends Model
 
     // Täyttää automaattisesti created_at ja updated_at kentät
     public $timestamps = true;
+    
 }
 
