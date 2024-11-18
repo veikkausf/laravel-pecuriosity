@@ -30,15 +30,9 @@ Route::get('/map', function () {
 // Listat, käyttää EventControllerin viewer-metodia
 Route::get('event_list', [EventController::class, 'viewer'])->name('event_list');
 
-
-Route::get('/create_event', function () {
-    return view('create_event');
-})
+Route::get('create_event', [UserController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('create');
-
-
-Route::get('create_event', [UserController::class, 'index']);
 
 // Define the route to store the event data
 Route::post('/event_list', [EventController::class, 'store'])->name('events.store');

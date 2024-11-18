@@ -21,7 +21,8 @@
    <h1 class="text-6xl font-bold mt-10 text-center">Latest Pecuriosities</h1>
    <div class="flex justify-center mt-10">
       <a href="create_event"
-         class="bg-indigo-500 transition-colors duration-150 text-white text-center text-2xl py-2 px-4 rounded-lg hover:bg-indigo-900"><b>List your own
+         class="bg-indigo-500 transition-colors duration-150 text-white text-center text-2xl py-2 px-4 rounded-lg hover:bg-indigo-900"><b>List
+            your own
             pecuriosity</b> <br>(Login required)</a>
    </div>
 
@@ -41,9 +42,10 @@
          <div class="bg-gray-700 p-6 m-4 rounded-lg border-2 border-blue-300 w-2/3 text-center">
             <h2 class="text-5xl font-bold">{{ $event->title }}</h2>
             <div x-data="{ open: false }">
-               <button class="text-lg font-semibold pt-4" x-on:click="open = ! open">Press for more info <br> ↓</button>
+               <button class="text-lg underline font-semibold pt-4" x-on:click="open = ! open">Press for more info <br>
+                  ↓</button>
                <div x-show="open">
-               <p class="mt-2 font-semibold">{{ $event->description }}</p>
+                  <p class="mt-2 font-semibold">{{ $event->description }}</p>
                </div>
             </div>
             {{-- <img src="{{ $event->image }} width="500" height="600"> --}}
@@ -58,8 +60,9 @@
             </div>
          </div>
       @endforeach
-      <button class="bg-blue-700 text-2xl font-semibold text-white text-center py-6 px-8 rounded-lg mb-2 hover:bg-blue-900" onclick="scrollUp()"
-         title="back to top">Back to the top</button>
+      <button
+         class="bg-blue-700 text-2xl font-semibold text-white text-center py-6 px-8 rounded-lg mb-2 hover:bg-blue-900"
+         onclick="scrollUp()" title="back to top">Back to the top</button>
    </div>
 
    <!-- Leaflet JS -->
