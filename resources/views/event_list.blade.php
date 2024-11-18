@@ -2,10 +2,12 @@
 <html lang="en">
 
 <head>
+
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Event List</title>
-   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet">
 
    <!-- Alpine.js CDN paketti -->
    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -14,6 +16,14 @@
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
       integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
       crossorigin="" />
+
+    <!-- Pitää eritellä tyylinä, että toimii: https://alpinejs.dev/directives/cloak -->
+   <style>
+      [x-cloak] {
+         display: none !important;
+      }
+   </style>
+
 </head>
 
 <body class="bg-gray-800 text-white">
@@ -29,8 +39,9 @@
    <div>
       @if (session('success'))
          <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 2500)"
-            x-transition:leave="transition-opacity duration-1000 ease-out" x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0" class="text-center bg-grey-900 text-white rounded">
+            x-transition:leave="transition-opacity duration-1000 ease-out"
+            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="text-center bg-grey-900 text-white rounded">
             {{ session('success') }}
          </div>
       @endif
@@ -38,15 +49,35 @@
 
    {{-- Listataan eventit controllerin myötä --}}
    <div class="flex flex-col items-center mt-10 overflow-y-auto">
-      @foreach ($events as $event)
+      {{-- Pitää luetella uusimmasta vanhimpaan --}}
+      {{-- TYYLITTELE PAREMMIN, ESIM DATE, DESCILLE TAUSTA TMS. --}}
+      {{-- MAHD. LISÄÄ ACTIVITYINDICATOR, KOSKA KARTAT EI LATAA HETI: https://flowbite.com/docs/components/spinner/ --}}
+      @foreach ($events->sortByDesc('created_at') as $event)
          <div class="bg-gray-700 p-6 m-4 rounded-lg border-2 border-blue-300 w-2/3 text-center">
             <h2 class="text-5xl font-bold">{{ $event->title }}</h2>
+
             <div x-data="{ open: false }">
-               <button class="text-lg underline font-semibold pt-4" x-on:click="open = ! open">Press for more info <br>
+               <button class="text-lg underline font-semibold pt-4" x-on:click="open = ! open">Press
+                  for more info <br>
                   ↓</button>
-               <div x-show="open">
-                  <p class="mt-2 font-semibold">{{ $event->description }}</p>
-                  <p class="mt-2 font-bold"> Posted by: {{ $event->username }}</p>
+               <div x-cloak x-show="open">
+                  <p class="mt-2 text-xl font-semibold">{{ $event->description }}</p>
+                  {{-- Viiva descin ja ajan väliin --}}
+                  <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+                  {{-- Renderataan vaan, käytäjä on päättänyt lisätä nimen postaukseen --}}
+                  {{-- Lisättävä ehkä else, jos ei ole nimeä esim "anonymous" --}}
+                  <template x-if="{{ $event->username ? 'true' : 'false' }}">
+                     <div>
+                        <p class="mt-2 font-bold text-xl"> POSTED BY: {{ $event->username }}</p>
+                     </div>
+                  </template>
+                  <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+                  {{-- Carbon (Laravelissa mukana), jonka avulla voi seuraavalla tavalla, muuttaa miten näytetään tai formatoidaan pvm, vuodet tms. --}}
+                  <p class="mt-2 font-bold text-xl">
+                     {{ $event->created_at->format('l, H:i') }}</p>
+                  <p class="mt-2 font-bold text-xl">
+                     {{ $event->created_at->format(' d.m.Y ') }}</p>
+
                </div>
             </div>
             {{-- <img src="{{ $event->image }} width="500" height="600"> --}}
@@ -55,7 +86,15 @@
             <div x-show="open" class="flex flex-wrap space-x-4 mt-4">
                {{-- Jos halutaan renderaa enemmän kuin yksi kartta, pitää myös antaa id jokaiselle --}}
                <div id="map-{{ $event->id }}" class="w-full h-64">
-                  <x-maps-leaflet :id="'map-' . $event->id" :centerPoint="['lat' => $event->latitude, 'long' => $event->longitude]" :markers="[['lat' => $event->latitude, 'long' => $event->longitude]]">
+                  <x-maps-leaflet :id="'map-' . $event->id" :centerPoint="[
+                      'lat' => $event->latitude,
+                      'long' => $event->longitude,
+                  ]" :markers="[
+                      [
+                          'lat' => $event->latitude,
+                          'long' => $event->longitude,
+                      ],
+                  ]">
                   </x-maps-leaflet>
                </div>
             </div>
@@ -72,11 +111,14 @@
    <script>
       document.addEventListener("DOMContentLoaded", function() {
          @foreach ($events as $event)
-            var map{{ $event->id }} = L.map('map-{{ $event->id }}').setView([{{ $event->latitude }},
-               {{ $event->longitude }}
-            ], 10);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map{{ $event->id }});
-            L.marker([{{ $event->latitude }}, {{ $event->longitude }}]).addTo(map{{ $event->id }});
+            var map{{ $event->id }} = L.map('map-{{ $event->id }}')
+               .setView([{{ $event->latitude }},
+                  {{ $event->longitude }}
+               ], 10);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+               .addTo(map{{ $event->id }});
+            L.marker([{{ $event->latitude }}, {{ $event->longitude }}])
+               .addTo(map{{ $event->id }});
          @endforeach
       });
 

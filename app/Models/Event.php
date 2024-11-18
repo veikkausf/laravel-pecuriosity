@@ -8,7 +8,7 @@ class Event extends Model
 {
     // taulu tietokannasta
     protected $table = 'events';
-
+    
     protected $primaryKey = 'id';
 
     protected $fillable = [
