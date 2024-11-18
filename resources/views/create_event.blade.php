@@ -69,31 +69,39 @@
                   post?</label>
             </div>
 
-            <!-- Testi tuleeko nimi perille-->
+            <!-- Näytetään muistutuksena käyttäjänimi ja muutenkin testi tuleeko perille modelista-->
             <div>
                <label for="username" class="text-white">Logged in as:
                   {{ $username }}</label>
             </div>
 
-            <!-- Centering the Button -->
-            <div class="flex justify-center">
-               <label for="image"
-                  class="mt-4 font-semibold w-full h-12 px-6 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800 cursor-pointer flex items-center justify-center">
-                  Add an image from your device
-               </label>
-               <input type="file" id="image" name="image"
-                  class="hidden" accept="image/*">
-            </div>
-            <input type="hidden" id="latitude" name="latitude"
-               value="{{ $currentUserInfo->latitude }}">
-            <input type="hidden" id="longitude" name="longitude"
-               value="{{ $currentUserInfo->longitude }}">
-            <div class="flex justify-center">
-               <button
-                  class="mt-10 font-semibold w-full h-16 text-2xl px-6 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100">
-                  Publish
-               </button>
-            </div>
+            <!-- Jos tsekataan boksi, täytetään näkymätön formi controllerille -->
+            <div x-show="check">
+               <input type="hidden" id="username" name="username"
+                  value="{{ $username }}">
+               <div>
+
+                  <!-- TEE VIELÄ FORMI AJALLE, (created_at)-->
+
+                  <!-- Centering the Button -->
+                  <div class="flex justify-center">
+                     <label for="image"
+                        class="mt-4 font-semibold w-full h-12 px-6 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800 cursor-pointer flex items-center justify-center">
+                        Add an image from your device
+                     </label>
+                     <input type="file" id="image" name="image"
+                        class="hidden" accept="image/*">
+                  </div>
+                  <input type="hidden" id="latitude" name="latitude"
+                     value="{{ $currentUserInfo->latitude }}">
+                  <input type="hidden" id="longitude" name="longitude"
+                     value="{{ $currentUserInfo->longitude }}">
+                  <div class="flex justify-center">
+                     <button
+                        class="mt-10 font-semibold w-full h-16 text-2xl px-6 transition-colors duration-150 border border-indigo-500 rounded-lg focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100">
+                        Publish
+                     </button>
+                  </div>
    </form>
    <div>
    </div>

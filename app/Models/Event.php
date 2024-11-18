@@ -12,12 +12,15 @@ class Event extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'title', 'description', 'image', // Käyttäjän täyttämät tiedot
-        'latitude', 'longitude', // Saadaan ip:stä
+        'title',
+        'description',
+        'username',
+        'image', // Käyttäjän täyttämät tiedot
+
+        'latitude', // Saadaan ip:stä
+        'longitude',
     ];
 
     // Täyttää automaattisesti created_at ja updated_at kentät
     public $timestamps = true;
-    
 }
-

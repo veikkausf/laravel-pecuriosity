@@ -46,6 +46,7 @@
                   ↓</button>
                <div x-show="open">
                   <p class="mt-2 font-semibold">{{ $event->description }}</p>
+                  <p class="mt-2 font-bold"> Posted by: {{ $event->username }}</p>
                </div>
             </div>
             {{-- <img src="{{ $event->image }} width="500" height="600"> --}}
