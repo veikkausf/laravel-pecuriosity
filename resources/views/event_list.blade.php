@@ -17,7 +17,7 @@
       integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
       crossorigin="" />
 
-    <!-- Pitää eritellä tyylinä, että toimii: https://alpinejs.dev/directives/cloak -->
+   <!-- Pitää eritellä tyylinä, että toimii: https://alpinejs.dev/directives/cloak -->
    <style>
       [x-cloak] {
          display: none !important;
@@ -53,7 +53,7 @@
       {{-- TYYLITTELE PAREMMIN, ESIM DATE, DESCILLE TAUSTA TMS. --}}
       {{-- MAHD. LISÄÄ ACTIVITYINDICATOR, KOSKA KARTAT EI LATAA HETI: https://flowbite.com/docs/components/spinner/ --}}
       @foreach ($events->sortByDesc('created_at') as $event)
-         <div class="bg-gray-700 p-6 m-4 rounded-lg border-2 border-blue-300 w-2/3 text-center">
+         <div class="bg-gray-700 p-6 m-4 rounded-lg border-2 border-blue-300 w-2/5 text-center">
             <h2 class="text-5xl font-bold">{{ $event->title }}</h2>
 
             <div x-data="{ open: false }">
@@ -83,9 +83,9 @@
             {{-- <img src="{{ $event->image }} width="500" height="600"> --}}
 
             {{-- Kartta jokaisen tapahtuman alla, otetaann recordin id:n kanssa koordinaatit  --}}
-            <div x-show="open" class="flex flex-wrap space-x-4 mt-4">
+            <div x-show="open" class="flex flex-wrap grid-cols-subgrid space-x-4 mt-4">
                {{-- Jos halutaan renderaa enemmän kuin yksi kartta, pitää myös antaa id jokaiselle --}}
-               <div id="map-{{ $event->id }}" class="w-full h-64">
+               <div id="map-{{ $event->id }}" class="w-full max-h-96">
                   <x-maps-leaflet :id="'map-' . $event->id" :centerPoint="[
                       'lat' => $event->latitude,
                       'long' => $event->longitude,
@@ -111,10 +111,13 @@
    <script>
       document.addEventListener("DOMContentLoaded", function() {
          @foreach ($events as $event)
-            var map{{ $event->id }} = L.map('map-{{ $event->id }}')
-               .setView([{{ $event->latitude }},
-                  {{ $event->longitude }}
-               ], 10);
+            var map{{ $event->id }} =
+               L.map('map-{{ $event->id }}')
+               .setView(
+                  // Koordinaatit dynaamisesti
+                  [{{ $event->latitude }},
+                     {{ $event->longitude }}
+                  ], 13); // Zoomin taso 13
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
                .addTo(map{{ $event->id }});
             L.marker([{{ $event->latitude }}, {{ $event->longitude }}])
