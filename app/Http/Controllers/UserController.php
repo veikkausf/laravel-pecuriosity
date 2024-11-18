@@ -28,6 +28,6 @@ class UserController extends Controller
         // Nykyisen käyttäjän username
         $username = Auth::user()->name;
 
-        return view('create_event', compact('currentUserInfo, username'));
+        return view('create_event', compact('currentUserInfo', 'username'));
     }
 }
