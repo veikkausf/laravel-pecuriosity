@@ -50,4 +50,15 @@ class EventController extends Controller
         $events = Event::all();
         return view('event_list', compact('events'));
     }
+    public function manager(Request $request)
+    {
+        $events = Event::where('username', Auth::user()->name)->get();
+        return view('dashboard', compact('events'));
+    }
+public function destroy(Event $event)
+{
+    $event->delete();
+    return redirect()->route('dashboard')->with('success', 'Listing removed');  
+    
+}
 }
