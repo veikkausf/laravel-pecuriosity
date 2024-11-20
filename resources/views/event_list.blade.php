@@ -57,7 +57,7 @@
             <h2 class="text-5xl font-bold">{{ $event->title }}</h2>
 
             <div x-data="{ open: false }">
-               <button class="text-lg underline font-semibold pt-4" x-on:click="open = ! open">Press
+               <button class="underline font-semibold text-xl pt-4" x-on:click="open = ! open">Press
                   for more info <br>
                   ↓</button>
                <div x-cloak x-show="open">
@@ -71,6 +71,10 @@
                         <p class="mt-2 font-bold text-xl"> POSTED BY: {{ $event->username }}</p>
                      </div>
                   </template>
+                  <div class="flex justify-center items-center h-full">
+                     <img src="{{ asset('storage/' . $event->image) }}" alt="Event Image" 
+                         class="mt-2 w-64 h-auto rounded-md shadow-lg">
+                 </div>
                   <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
                   {{-- Carbon (Laravelissa mukana), jonka avulla voi seuraavalla tavalla, muuttaa miten näytetään tai formatoidaan pvm, vuodet tms. --}}
                   <p class="mt-2 font-bold text-xl">
@@ -80,7 +84,7 @@
 
                </div>
             </div>
-            {{-- <img src="{{ $event->image }} width="500" height="600"> --}}
+            
 
             {{-- Kartta jokaisen tapahtuman alla, otetaann recordin id:n kanssa koordinaatit  --}}
             <div x-show="open" class="flex flex-wrap grid-cols-subgrid space-x-4 mt-4">
