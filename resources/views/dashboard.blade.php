@@ -7,14 +7,21 @@
 
    <div class="py-12 bg-gray-800">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 text-gray-900">
-               {{ __("You're logged in!") }}
-            </div>
-         </div>
+         
          <div class="flex justify-center mt-20">
-            <a class="underline text-7xl text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            <a class="underline text-8xl text-white hover:text-indigo-500 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                href="{{ route('event_list') }}">View Events</a>
+         </div>
+
+         <div>
+            @if (session('success'))
+               <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 2500)"
+                  x-transition:leave="transition-opacity duration-1000 ease-out"
+                  x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                  class="text-center text-xl font-semibold bg-grey-900 text-white rounded">
+                  {{ session('success') }}
+               </div>
+            @endif
          </div>
 
          <!-- Dropdown nappi -->
@@ -41,10 +48,14 @@
                         </div>
 
                         <!-- POISTO TÄHÄN (EventController destroy tms.) -->
+                        <form action="{{ route('event.destroy', $event->id) }}" method="POST">
+                        @csrf
+                        @method ('DELETE')
                         <button
                            class="bg-red-700 text-white font-semibold px-10 py-4 text-xl rounded hover:bg-red-900 ">
                            Delete
                         </button>
+                     </form>
                      </div>
                   @endforeach
                </div>

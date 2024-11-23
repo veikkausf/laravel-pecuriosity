@@ -29,9 +29,12 @@
 <body class="bg-gray-800 text-white">
 
    <h1 class="text-6xl font-bold mt-10 text-center">Latest Pecuriosities</h1>
-   <div class="flex justify-center mt-10">
+   <div class="flex flex-col items-center justify-center space-y-6 mt-10">
+      <a href="dashboard"
+         class="border-2 border-indigo-500 transition-colors duration-150 text-white text-center text-2xl py-4 px-6 rounded-lg hover:bg-gray-700 font-semibold">Your
+         profile and post history</a>
       <a href="create_event"
-         class="bg-indigo-500 transition-colors duration-150 text-white text-center text-2xl py-2 px-4 rounded-lg hover:bg-indigo-900"><b>List
+         class="bg-indigo-500 transition-colors duration-150 text-white text-center text-2xl py-4 px-6 rounded-lg hover:bg-indigo-900"><b>List
             your own
             pecuriosity</b> <br>(Login required)</a>
    </div>
@@ -72,9 +75,12 @@
                      </div>
                   </template>
                   <div class="flex justify-center items-center h-full">
-                     <img src="{{ asset('storage/' . $event->image) }}" alt="Event Image" 
-                         class="mt-2 w-64 h-auto rounded-md shadow-lg">
-                 </div>
+                     {{-- Piti olla, koska jos kuvaa ei ollut lisätty, tilalla luki vaan "Event Image" --}}
+                     <template x-if="{{ $event->image ? 'true' : 'false' }}">
+                        <img src="{{ asset('storage/' . $event->image) }}" alt="Event Image"
+                           class="mt-2 w-64 h-auto rounded-md shadow-lg">
+                     </template>
+                  </div>
                   <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
                   {{-- Carbon (Laravelissa mukana), jonka avulla voi seuraavalla tavalla, muuttaa miten näytetään tai formatoidaan pvm, vuodet tms. --}}
                   <p class="mt-2 font-bold text-xl">
@@ -84,7 +90,6 @@
 
                </div>
             </div>
-            
 
             {{-- Kartta jokaisen tapahtuman alla, otetaann recordin id:n kanssa koordinaatit  --}}
             <div x-show="open" class="flex flex-wrap grid-cols-subgrid space-x-4 mt-4">

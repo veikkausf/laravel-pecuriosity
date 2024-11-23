@@ -10,7 +10,6 @@
  
   <div class="flex flex-col items-center space-y-8 mb-10">
     <h1 class="text-6xl font-bold mt-8">WELCOME TO PECURIOSITIES!</h1>
-    <p class="text-xl">What is this site about blahblahblah</p>
     <a href="{{ route('event_list') }}" class="border-2 text-4xl font-semibold border-white px-4 py-2 rounded-lg hover:bg-white hover:text-indigo-700">
       LATEST PECURIOSITIES HERE
     </a>

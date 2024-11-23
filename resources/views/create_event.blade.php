@@ -6,8 +6,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>KARTTAJUTTU</title>
 
-   <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet">
 
    <!-- Alpine.js CDN paketti -->
@@ -21,8 +20,7 @@
 
 <body class=" bg-gray-800 text-white">
    <!-- Controllerille käyttäjän lisäämät tiedodt -->
-   <form action="{{ route('events.store') }}" method="POST"
-      enctype="multipart/form-data">
+   <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="flex flex-col md:flex-row justify-between items-start ">
          <!-- Map on the left side -->
@@ -30,13 +28,12 @@
             <x-maps-leaflet class="w-full h-full" :centerPoint="[
                 'lat' => $currentUserInfo->latitude,
                 'long' => $currentUserInfo->longitude,
-            ]"
-               :markers="[
-                   [
-                       'lat' => $currentUserInfo->latitude,
-                       'long' => $currentUserInfo->longitude,
-                   ],
-               ]">
+            ]" :markers="[
+                [
+                    'lat' => $currentUserInfo->latitude,
+                    'long' => $currentUserInfo->longitude,
+                ],
+            ]">
             </x-maps-leaflet>
          </div>
 
@@ -55,15 +52,13 @@
             <div class="mb-6">
                <label for="description"
                   class="block mb-2 font-medium text-white text-center text-xl dark:text-white">Description</label>
-               <textarea placeholder="Maximum 550 characters" rows="6" id="description"
-                  name="description"
+               <textarea placeholder="Maximum 550 characters" rows="6" id="description" name="description"
                   class="font-figtree w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
             </div>
             <!-- Tähän if check tai tarkastus ja lähetys controllerille, esim näkymätön form-->
-            <div x-data="{ check: false }" x-init="$watch('check', value => console.log(value))"
-               class="flex items-center mb-4">
-               <input x-model="check" id="username_checkbox" type="checkbox"
-                  value="" class="w-6 h-6 rounded">
+            <div x-data="{ check: false }" x-init="$watch('check', value => console.log(value))" class="flex items-center mb-4">
+               <input x-model="check" id="username_checkbox" type="checkbox" value=""
+                  class="w-6 h-6 rounded">
                <label for="username_checkbox" class="text-white ml-4">Add your
                   username to
                   post?</label>
@@ -77,11 +72,8 @@
 
             <!-- Jos tsekataan boksi, täytetään näkymätön formi controllerille -->
             <div x-show="check">
-               <input type="hidden" id="username" name="username"
-                  value="{{ $username }}">
+               <input type="hidden" id="username" name="username" value="{{ $username }}">
                <div>
-
-                  <!-- TEE VIELÄ FORMI AJALLE, (created_at)-->
 
                   <!-- Centering the Button -->
                   <div class="flex justify-center">
@@ -89,8 +81,8 @@
                         class="mt-4 font-semibold w-full h-12 px-6 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800 cursor-pointer flex items-center justify-center">
                         Add an image from your device
                      </label>
-                     <input type="file" id="image" name="image"
-                        class="hidden" accept="image/*">
+                     <input type="file" id="image" name="image" class="hidden"
+                        accept="image/*">
                   </div>
                   <input type="hidden" id="latitude" name="latitude"
                      value="{{ $currentUserInfo->latitude }}">
@@ -103,13 +95,15 @@
                      </button>
                   </div>
    </form>
-   <div>
+
    </div>
-   </div>
+   {{-- Kirjoittamisen peruutus, palauttaa event lista sivulle --}}
+   <a href="{{ route('event_list') }}"
+      class="mt-10 font-semibold w-full h-16 text-2xl px-6 transition-colors duration-150 border border-red-500 rounded-lg focus:shadow-outline hover:bg-red-500 hover:text-red-100 flex items-center justify-center">
+      Cancel
+   </a>
 </body>
 
 </html>
 
-<script
-   src="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.umd.js">
-</script>
+<script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.umd.js"></script>

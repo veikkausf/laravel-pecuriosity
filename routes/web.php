@@ -15,9 +15,10 @@ Route::get('/dashboard', [EventController::class, 'manager'])
 ->middleware(['auth', 'verified'])
 ->name('dashboard');
 
-Route::delete('/dashboard', [EventController::class, 'manager']) 
-->middleware(['auth', 'verified'])
-->name('dashboard');
+Route::delete('/dashboard/event/{event}', [EventController::class, 'destroy'])
+    ->middleware(['auth', 'verified'])
+    ->name('event.destroy');
+
 
 
 Route::middleware('auth')->group(function () {

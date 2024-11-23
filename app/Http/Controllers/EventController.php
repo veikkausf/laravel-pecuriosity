@@ -30,7 +30,7 @@ class EventController extends Controller
         // Niin on myös käyttäjänimen lisääminen listaukseen mukaan
         if ($request->has('username')) {
             $username = $request->input('username');
-        }  else {
+        } else {
             $username = null;
         }
 
@@ -55,10 +55,10 @@ class EventController extends Controller
         $events = Event::where('username', Auth::user()->name)->get();
         return view('dashboard', compact('events'));
     }
-public function destroy(Event $event)
-{
-    $event->delete();
-    return redirect()->route('dashboard')->with('success', 'Listing removed');  
-    
-}
+    public function destroy(Event $event)
+    {
+        $event->delete();
+        # Sivu päivittyy, kun poistetaan. Johtuu siitä, että ei käytössä livewire tai esim javascriptiä
+        return redirect()->route('dashboard')->with('success', 'Listing removed');
+    }
 }
