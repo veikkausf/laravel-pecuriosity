@@ -27,13 +27,10 @@ class EventController extends Controller
             $imagePath = null; // Jos ei kuvaa
         }
 
-        // Niin on myös käyttäjänimen lisääminen listaukseen mukaan
-        if ($request->has('username')) {
-            $username = $request->input('username');
-        } else {
-            $username = null;
-        }
-
+     
+        // Nykyisen käyttäjän nimi
+        $username = Auth::user()->name;
+        
         // Tiedot tietokantaan
         Event::create([
             'title' => $request->input('title'),

@@ -54,25 +54,6 @@
                   class="block mb-2 font-medium text-white text-center text-xl dark:text-white">Description</label>
                <textarea placeholder="Maximum 550 characters" rows="6" id="description" name="description"
                   class="font-figtree w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
-            </div>
-            <!-- Tähän if check tai tarkastus ja lähetys controllerille, esim näkymätön form-->
-            <div x-data="{ check: false }" x-init="$watch('check', value => console.log(value))" class="flex items-center mb-4">
-               <input x-model="check" id="username_checkbox" type="checkbox" value=""
-                  class="w-6 h-6 rounded">
-               <label for="username_checkbox" class="text-white ml-4">Add your
-                  username to
-                  post?</label>
-            </div>
-
-            <!-- Näytetään muistutuksena käyttäjänimi ja muutenkin testi tuleeko perille modelista-->
-            <div>
-               <label for="username" class="text-white">Logged in as:
-                  {{ $username }}</label>
-            </div>
-
-            <!-- Jos tsekataan boksi, täytetään näkymätön formi controllerille -->
-            <div x-show="check">
-               <input type="hidden" id="username" name="username" value="{{ $username }}">
                <div>
 
                   <!-- Centering the Button -->
